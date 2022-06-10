@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using CS5500_Project.Data;
 
 namespace CS5500_Project
 {
@@ -32,6 +34,11 @@ namespace CS5500_Project
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CS5500_Project", Version = "v1" });
             });
+            services.AddDbContext<Data.AppContext>(options =>
+                      options.UseSqlServer(
+                          Configuration.GetConnectionString("DefaultConnection")));
+            //Register dapper in scope    
+            services.AddScoped<IDapper, Dapperr>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
