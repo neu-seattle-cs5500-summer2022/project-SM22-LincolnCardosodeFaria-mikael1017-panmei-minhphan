@@ -1,7 +1,0 @@
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.csproj.AssemblyReference.cache
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.GeneratedMSBuildEditorConfig.editorconfig
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.AssemblyInfoInputs.cache
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.AssemblyInfo.cs
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.csproj.CoreCompileInputs.cache
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.MvcApplicationPartsAssemblyInfo.cs
-D:\OneDrive\NorthEastern_Masters\Courses\cs5500\project-SM22-LincolnCardosodeFaria-mikael1017-panmei-minhphan\backend\CS5500_Project\CS5500_Project\obj\Debug\net5.0\CS5500_Project.MvcApplicationPartsAssemblyInfo.cache
