@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./HomePage";
 
 function SignupPage() {
   // create state variables for each input
@@ -20,6 +21,11 @@ function SignupPage() {
     e.preventDefault();
     // TODO: post request here
   };
+
+  const goHome = () => {
+    navigate("/");
+  };
+
   return (
     <div>
       <h1> Sign Up Page</h1>
@@ -121,6 +127,12 @@ function SignupPage() {
           </button>
         </div>
       </form>
+
+      <div>
+        <button variant="contained" color="secondary" onClick={goHome}>
+          back to Home
+        </button>
+      </div>
     </div>
   );
 }

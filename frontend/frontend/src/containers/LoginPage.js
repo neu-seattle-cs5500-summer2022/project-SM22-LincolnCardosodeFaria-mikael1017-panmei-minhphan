@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,9 +10,13 @@ function LoginPage() {
     e.preventDefault();
     // TODO: post request here
   };
+
+  const goHome = () => {
+    navigate("/");
+  };
   return (
     <div>
-      <h1> Sign Up Page</h1>
+      <h1> Login Page</h1>
       <form className="form" onSubmit={requestLogin}>
         {}
         <div> Email </div>
@@ -38,6 +43,12 @@ function LoginPage() {
           </button>
         </div>
       </form>
+
+      <div>
+        <button variant="contained" color="secondary" onClick={goHome}>
+          back to Home
+        </button>
+      </div>
     </div>
   );
 }

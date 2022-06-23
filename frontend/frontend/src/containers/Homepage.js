@@ -10,6 +10,7 @@ function Homepage() {
   const goLogin = () => {
     navigate("/login");
   };
+
   return (
     <div>
       <button variant="contained" onClick={goSignUp}>
