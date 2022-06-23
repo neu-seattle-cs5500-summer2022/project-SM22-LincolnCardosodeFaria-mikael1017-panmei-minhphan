@@ -6,10 +6,17 @@ function Homepage() {
   const goSignUp = () => {
     navigate("/signup");
   };
+
+  const goLogin = () => {
+    navigate("/login");
+  };
   return (
     <div>
       <button variant="contained" onClick={goSignUp}>
         SignUp
+      </button>
+      <button variant="contained" onClick={goLogin}>
+        Login
       </button>
     </div>
   );
