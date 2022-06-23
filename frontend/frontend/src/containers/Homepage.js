@@ -1,3 +1,18 @@
-const Home = () => {};
+import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
-export default Home;
+function Homepage() {
+  const navigate = useNavigate();
+  const goSignUp = () => {
+    navigate("/signup");
+  };
+  return (
+    <div>
+      <button variant="contained" onClick={goSignUp}>
+        SignUp
+      </button>
+    </div>
+  );
+}
+
+export default Homepage;
