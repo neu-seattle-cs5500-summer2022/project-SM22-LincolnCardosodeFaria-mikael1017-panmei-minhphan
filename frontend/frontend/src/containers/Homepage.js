@@ -1,5 +1,7 @@
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
 
 function Homepage() {
   const navigate = useNavigate();
@@ -13,12 +15,12 @@ function Homepage() {
 
   return (
     <div>
-      <button variant="contained" onClick={goSignUp}>
+      <Button variant="primary" onClick={goSignUp}>
         SignUp
-      </button>
-      <button variant="contained" onClick={goLogin}>
+      </Button>
+      <Button variant="primary" onClick={goLogin}>
         Login
-      </button>
+      </Button>
     </div>
   );
 }

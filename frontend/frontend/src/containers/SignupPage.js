@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomePage";
+import { Button } from "react-bootstrap";
 
 function SignupPage() {
   // create state variables for each input
@@ -122,16 +123,16 @@ function SignupPage() {
         />
 
         <div>
-          <button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="primary">
             Signup
-          </button>
+          </Button>
         </div>
       </form>
 
       <div>
-        <button variant="contained" color="secondary" onClick={goHome}>
+        <Button variant="primary" onClick={goHome}>
           back to Home
-        </button>
+        </Button>
       </div>
     </div>
   );

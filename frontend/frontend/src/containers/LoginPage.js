@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -38,16 +39,16 @@ function LoginPage() {
         />
 
         <div>
-          <button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="primary">
             Login
-          </button>
+          </Button>
         </div>
       </form>
 
       <div>
-        <button variant="contained" color="secondary" onClick={goHome}>
+        <Button variant="primary" onClick={goHome}>
           back to Home
-        </button>
+        </Button>
       </div>
     </div>
   );
