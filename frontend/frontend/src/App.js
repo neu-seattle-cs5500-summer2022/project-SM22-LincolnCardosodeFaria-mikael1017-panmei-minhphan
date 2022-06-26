@@ -3,7 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/Navbar';
+
+//side bar
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import 'react-pro-sidebar/dist/css/styles.css';
 
 import Client from "./components/Client";
 
@@ -32,7 +35,7 @@ function App() {
 
       <Navbar bg="light">
         <Container>
-          <img src='/icons/client-logo.png' alt='client logo' className='gymLogo' />
+          <img src='/icons/gymLogo.png' alt='gym logo' className='gymLogo' />
           <Navbar.Brand href="#home">Gym Website Name</Navbar.Brand>
         </Container>
       </Navbar>

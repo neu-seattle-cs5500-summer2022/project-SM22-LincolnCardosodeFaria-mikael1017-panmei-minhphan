@@ -11,6 +11,7 @@ import Schedule from './Schedule'
 import WorkoutPlan from './WorkoutPlan';
 import Diet from './Diet';
 import Attendence from './Attendence';
+import Sidebar from './Sidebar';
 
 const Client = props => {
     // let params = useParams();
@@ -90,13 +91,15 @@ const Client = props => {
     // )
 
     return (
-        <div className="App">
-            Client Page Placeholder
-            <Schedule />
-            <Diet />
-            <Attendence />
-            <WorkoutPlan />
-
+        <div className="Client">
+            <Sidebar />
+            <div id="page-wrap">
+                Client Page Placeholder
+                <Schedule />
+                <Diet />
+                <Attendence />
+                <WorkoutPlan />
+            </div>
         </div>
 
     )
