@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomePage";
 import { Button } from "react-bootstrap";
+import MyNavbar from "../components/Navbar";
 
 function SignupPage() {
   // create state variables for each input
@@ -29,6 +30,7 @@ function SignupPage() {
 
   return (
     <div>
+      <MyNavbar />
       <h1> Sign Up Page</h1>
       <form className="form" onSubmit={createUser}>
         {}
@@ -128,12 +130,6 @@ function SignupPage() {
           </Button>
         </div>
       </form>
-
-      <div>
-        <Button variant="primary" onClick={goHome}>
-          back to Home
-        </Button>
-      </div>
     </div>
   );
 }

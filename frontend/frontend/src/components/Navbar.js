@@ -8,7 +8,7 @@ export default function MyNavbar() {
       <Container>
         <Navbar.Brand href="/">Home</Navbar.Brand>
         <Nav className="ml-auto">
-          <Nav.Link href="/login">Login</Nav.Link>
+          <Nav.Link href="/login">Sign in</Nav.Link>
         </Nav>
       </Container>
     </Navbar>

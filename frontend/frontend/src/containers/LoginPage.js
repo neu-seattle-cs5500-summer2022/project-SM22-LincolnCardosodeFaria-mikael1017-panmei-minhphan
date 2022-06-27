@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import MyNavbar from "../components/Navbar";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function LoginPage() {
   };
   return (
     <div>
+      <MyNavbar />
       <h1> Login Page</h1>
       <form className="form" onSubmit={requestLogin}>
         {}
@@ -44,12 +46,6 @@ function LoginPage() {
           </Button>
         </div>
       </form>
-
-      <div>
-        <Button variant="primary" onClick={goHome}>
-          back to Home
-        </Button>
-      </div>
     </div>
   );
 }
