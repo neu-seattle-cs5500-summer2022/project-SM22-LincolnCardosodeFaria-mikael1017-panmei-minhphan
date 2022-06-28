@@ -14,4 +14,4 @@ class GymDataService {
     getWorkoutPlan() { };
 }
 
-export default new GymDataService();
+export default new GymDataService;
