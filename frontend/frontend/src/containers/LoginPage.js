@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
+import axios from "axios";
 import styled from "styled-components";
 import MyNavbar from "../components/Navbar";
+
+const FormContainer = styled.div`
+  margin: auto;
+  width: 25%;
+`;
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -12,16 +18,26 @@ function LoginPage() {
   const requestLogin = (e) => {
     e.preventDefault();
     // TODO: post request here
+    axios
+      .post("/user/login", {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        console.log(response);
+        setEmail("");
+        setPassword("");
+        //TODO: Should return userId
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const goHome = () => {
     navigate("/");
   };
 
-  const FormContainer = styled.div`
-    margin: auto;
-    width: 25%;
-  `;
   return (
     <div>
       <MyNavbar />
@@ -51,7 +67,7 @@ function LoginPage() {
 
           <div>
             <Button type="submit" variant="primary">
-              Signup
+              Login
             </Button>
           </div>
         </Form>

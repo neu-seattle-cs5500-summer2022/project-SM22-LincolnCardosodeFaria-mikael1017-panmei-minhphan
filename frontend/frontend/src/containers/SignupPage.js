@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./HomePage";
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import MyNavbar from "../components/Navbar";
+
+const FormContainer = styled.div`
+  margin: auto;
+  width: 25%;
+`;
 
 function SignupPage() {
   // create state variables for each input
@@ -18,17 +24,35 @@ function SignupPage() {
 
   const createUser = (e) => {
     e.preventDefault();
-    // TODO: post request here
+    axios
+      .post("/user", {
+        username: username,
+        password: password,
+        email: email,
+        fullName: fullName,
+        dateOfBirth: dateOfBirth,
+        address: address,
+        phone: phone,
+      })
+      .then(function (response) {
+        console.log(response);
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setFullName("");
+        setAddress("");
+        setDateOfBirth("");
+        setPhone("");
+        //TODO: Should return userId
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const goHome = () => {
     navigate("/");
   };
-
-  const FormContainer = styled.div`
-    margin: auto;
-    width: 25%;
-  `;
 
   return (
     <div>
