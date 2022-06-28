@@ -1,27 +1,53 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./HomePage";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import styled from "styled-components";
 import MyNavbar from "../components/Navbar";
+
+const FormContainer = styled.div`
+  margin: auto;
+  width: 25%;
+`;
 
 function SignupPage() {
   // create state variables for each input
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipcode, setZipcode] = useState("");
   const [phone, setPhone] = useState("");
 
   const createUser = (e) => {
     e.preventDefault();
-    // TODO: post request here
+    axios
+      .post("/user", {
+        username: username,
+        password: password,
+        email: email,
+        fullName: fullName,
+        dateOfBirth: dateOfBirth,
+        address: address,
+        phone: phone,
+      })
+      .then(function (response) {
+        console.log(response);
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setFullName("");
+        setAddress("");
+        setDateOfBirth("");
+        setPhone("");
+        //TODO: Should return userId
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const goHome = () => {
@@ -32,104 +58,88 @@ function SignupPage() {
     <div>
       <MyNavbar />
       <h1> Sign Up Page</h1>
-      <form className="form" onSubmit={createUser}>
-        {}
-        <div> Username </div>
-        <input
-          label="Username"
-          variant="filled"
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <div> Password </div>
-        <input
-          label="Password"
-          variant="filled"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div> Email </div>
-        <input
-          label="Email"
-          variant="filled"
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <div> First Name </div>
-        <input
-          label="First Name"
-          variant="filled"
-          required
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <div> Last Name </div>
-        <input
-          label="Last Name"
-          variant="filled"
-          required
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <div> Date of Birth </div>
-        <input
-          label="Date of Birth"
-          variant="filled"
-          required
-          value={dateOfBirth}
-          onChange={(e) => setDateOfBirth(e.target.value)}
-        />
-        <div> Address </div>
-        <input
-          label="Date of Birth"
-          variant="filled"
-          required
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-        <div> City </div>
-        <input
-          label="city"
-          variant="filled"
-          required
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <div> State </div>
-        <input
-          label="State"
-          variant="filled"
-          required
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-        />
-        <div> Zipcode </div>
-        <input
-          label="Zipcode"
-          variant="filled"
-          required
-          value={zipcode}
-          onChange={(e) => setZipcode(e.target.value)}
-        />
-        <div> Phone </div>
-        <input
-          label="Phone"
-          variant="filled"
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
+      <FormContainer>
+        <Form onSubmit={createUser}>
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Username</Form.Label> */}
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Password</Form.Label> */}
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Email</Form.Label> */}
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
 
-        <div>
-          <Button type="submit" variant="primary">
-            Signup
-          </Button>
-        </div>
-      </form>
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Full Name</Form.Label> */}
+            <Form.Control
+              type="text"
+              placeholder="Full Name"
+              required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Date of Birth</Form.Label> */}
+            <Form.Control
+              type=""
+              placeholder="Date of Birth"
+              required
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Address</Form.Label> */}
+            <Form.Control
+              type=""
+              placeholder="Address"
+              required
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            {/* <Form.Label>Phone</Form.Label> */}
+            <Form.Control
+              type="number"
+              placeholder="Phone"
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </Form.Group>
+
+          <div>
+            <Button type="submit" variant="primary">
+              Signup
+            </Button>
+          </div>
+        </Form>
+      </FormContainer>
     </div>
   );
 }
