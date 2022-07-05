@@ -17,9 +17,8 @@ const Client = props => {
         <div className="Client">
             <Sidebar />
             <div id="page-wrap">
-                Client Page Placeholder
-                <Schedule />
                 <Diet />
+                <Schedule />
                 <Attendence />
                 <WorkoutPlan />
             </div>
