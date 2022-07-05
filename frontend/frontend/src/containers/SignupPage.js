@@ -25,18 +25,18 @@ function SignupPage() {
   const createUser = (e) => {
     e.preventDefault();
     axios
-      .post("https://gymmanagement.cropfix.ca/User/CreateUser", {
-        headers: { "Access-Control-Allow-Origin": "*" },
-        withCredentials: true,
-        data: {
+      .post("https://gymmanagement.cropfix.ca/User/CreateUser/", {
+        // headers: { "Access-Control-Allow-Origin": "*" },
+        // withCredentials: true,
+        data: JSON.stringify({
           username: username,
           password: password,
           email: email,
-          fullName: fullName,
+          fullname: fullName,
           dob: dob,
           address: address,
           phone: phone,
-        },
+        }),
       })
       .then(function (response) {
         console.log(response);
