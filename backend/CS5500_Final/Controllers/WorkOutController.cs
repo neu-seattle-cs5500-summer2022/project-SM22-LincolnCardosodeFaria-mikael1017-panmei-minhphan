@@ -34,13 +34,15 @@ namespace CS5500_Final.Controllers
 
 
             return new HttpResponseMessage(HttpStatusCode.OK);
-        }        
+        }
         /// <summary>
-        ///Get All Workouts for an User
+        /// Get All Workouts for an User
         /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet(nameof(GetAllWorkoutByUser))]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<HttpResponseMessage> GetAllWorkoutByUser(User user)
+        public async Task<HttpResponseMessage> GetAllWorkoutByUser(int userId)
         {
 
 

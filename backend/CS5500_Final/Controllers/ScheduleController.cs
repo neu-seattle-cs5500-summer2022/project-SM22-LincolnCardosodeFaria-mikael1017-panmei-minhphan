@@ -25,9 +25,9 @@ namespace CS5500_Final.Controllers
         /// </summary>
         /// <param name="schedule"></param>
         /// <returns></returns>
-        [HttpPut(nameof(UpdateScheduleByUser))]
+        [HttpPut(nameof(UpdateSchedule))]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
-        public async Task<HttpResponseMessage> UpdateScheduleByUser(Schedule schedule)
+        public async Task<HttpResponseMessage> UpdateSchedule(Schedule schedule)
         {
 
 
@@ -35,13 +35,13 @@ namespace CS5500_Final.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
         /// <summary>
-        /// Get all Schedules for an User
+        ///  Get all Schedules for an User
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet(nameof(GetAllScheduleByUser))]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<HttpResponseMessage> GetAllScheduleByUser(User user)
+        public async Task<HttpResponseMessage> GetAllScheduleByUser(int userId)
         {
 
 

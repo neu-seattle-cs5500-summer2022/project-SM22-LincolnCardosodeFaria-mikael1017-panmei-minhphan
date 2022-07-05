@@ -2,9 +2,18 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("*");
+                      });
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 //builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -31,26 +40,19 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseSwagger(options =>
 {
     options.SerializeAsV2 = true;
 });
-// Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
+
     app.UseExceptionHandler("/Home/Error");
     app.UseSwagger();
     app.UseSwaggerUI();
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+ 
     app.UseHsts();
-//}
-//else
-//{
-    
-//        app.UseSwagger();
-//        app.UseSwaggerUI();
-    
-//}
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -60,7 +62,9 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseSwaggerUI(options =>
 {
+//https://gymmanagement.cropfix.ca/
     options.SwaggerEndpoint("/swagger/v1/swagger.yaml", "v1");
+    //options.SwaggerEndpoint("https://gymmanagement.cropfix.ca/", "v1");
     options.RoutePrefix = string.Empty;
 });
 app.MapControllerRoute(

@@ -4,7 +4,8 @@
     {
         public int WorkoutId { get; set; }
         public Exercise Exercise { get; set; }
-        public DateTime Date { get; set; }
-        public TimeOnly Time { get; set; }
+        public DateTime date { get; set; }
+    
+        public int UserId { get; set; }
     }
 }
