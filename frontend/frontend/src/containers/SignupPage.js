@@ -18,21 +18,25 @@ function SignupPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dob, setdob] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
   const createUser = (e) => {
     e.preventDefault();
     axios
-      .post("/user", {
-        username: username,
-        password: password,
-        email: email,
-        fullName: fullName,
-        dateOfBirth: dateOfBirth,
-        address: address,
-        phone: phone,
+      .post("https://gymmanagement.cropfix.ca/User/CreateUser", {
+        headers: { "Access-Control-Allow-Origin": "*" },
+        withCredentials: true,
+        data: {
+          username: username,
+          password: password,
+          email: email,
+          fullName: fullName,
+          dob: dob,
+          address: address,
+          phone: phone,
+        },
       })
       .then(function (response) {
         console.log(response);
@@ -41,7 +45,7 @@ function SignupPage() {
         setPassword("");
         setFullName("");
         setAddress("");
-        setDateOfBirth("");
+        setdob("");
         setPhone("");
         //TODO: Should return userId
       })
@@ -108,8 +112,8 @@ function SignupPage() {
               type=""
               placeholder="Date of Birth"
               required
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
+              value={dob}
+              onChange={(e) => setdob(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3">
