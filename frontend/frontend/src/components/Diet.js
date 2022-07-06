@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import MealList from "./MealList"
-//for testint
-import testfoods from '../test-foods.json'
 
 
 const Diet = ({ user }) => {
@@ -25,6 +23,8 @@ const Diet = ({ user }) => {
         )
             .then(response => response.json())
             .then(data => {
+                console.log("get meal------------", data)
+                console.log("data type -----------", typeof (data))
                 setMealData(data)
             })
             .catch(() => {
@@ -36,33 +36,33 @@ const Diet = ({ user }) => {
         setCalories(e.target.value)
     }
 
-    // return (
-    //     <div className="App">
-    //         <section className="controls">
-    //             <input
-    //                 type="number"
-    //                 placeholder="Calories (e.g. 2000)"
-    //                 onChange={handleChange}
-    //             />
-    //             <button onClick={getMealData}>Get Daily Meal Plan</button>
-    //         </section>
-    //         {mealData && <MealList mealData={mealData} />}
-    //     </div>
-    // )
-
     return (
-        <div>
-            <Card>
-                <Card.Body>
-                    <button onClick={getMealData}>Prev</button>
-                    <button onClick={getMealData}>Get Today's Meal Plan</button>
-                    <button onClick={getMealData}>Next</button>
-                    {mealData && <MealList mealData={mealData} />}
-
-                </Card.Body>
-            </Card>
+        <div className="App">
+            <section className="controls">
+                <input
+                    type="number"
+                    placeholder="Calories (e.g. 2000)"
+                    onChange={handleChange}
+                />
+                <button onClick={getMealData}>Get Daily Meal Plan</button>
+            </section>
+            {mealData && <MealList mealData={mealData} />}
         </div>
     )
+
+    // return (
+    //     <div>
+    //         <Card>
+    //             <Card.Body>
+    //                 <button onClick={getMealData}>Prev</button>
+    //                 <button onClick={getMealData}>Get Today's Meal Plan</button>
+    //                 <button onClick={getMealData}>Next</button>
+    //                 {mealData && <MealList mealData={mealData} />}
+
+    //             </Card.Body>
+    //         </Card>
+    //     </div>
+    // )
 }
 
 export default Diet;
