@@ -18,8 +18,6 @@ namespace CS5500_Final.Controllers
             _configuration = configuration;
         }
 
-
-
         /// <summary>
         ///  Request a user authentication
         /// </summary>
@@ -47,16 +45,16 @@ namespace CS5500_Final.Controllers
 
                 if (result.Count >= 1)
                 {
-                    return new JsonResult("User Found")
+                    return new JsonResult(new { Authentication = true, Message = "User Authenticated" })
                     {
                         StatusCode = StatusCodes.Status200OK // Status code here 
                     };
                 }
                 else
                 {
-                    return new JsonResult("User Not Found")
+                    return new JsonResult(new { Authentication = false, Message = "User Not Authenticated" })
                     {
-                        StatusCode = StatusCodes.Status404NotFound // Status code here 
+                        StatusCode = StatusCodes.Status200OK // Status code here 
                     };
                 }
             }

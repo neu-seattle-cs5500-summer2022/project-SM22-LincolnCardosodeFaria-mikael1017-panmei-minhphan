@@ -2,7 +2,7 @@
 {
     public class Food
     {
-        int FoodId { get; set; }
+        public int id { get; set; }
         public string Name { get; set; }
 
         public double QuantityLbs { get; set; }

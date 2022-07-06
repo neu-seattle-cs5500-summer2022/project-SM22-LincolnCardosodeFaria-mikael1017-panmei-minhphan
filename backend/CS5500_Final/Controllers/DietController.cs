@@ -1,4 +1,5 @@
 ﻿using CS5500_Final.Models;
+using CS5500_Final.Process;
 using CS5500_Final.ViewModels;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
@@ -105,12 +106,47 @@ namespace CS5500_Final.Controllers
         /// <returns>Return Status 200 when success</returns>
         [HttpPut(nameof(UpdateDiet))]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
-        public async Task<HttpResponseMessage> UpdateDiet(Diet diet)
+        public async Task<JsonResult> UpdateDiet(Diet diet)
         {
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                                   
+                    var sqlStatementQueryDit = @"select * from Diets where id = @DietId";
+                    var selectParemeter = new { DietId = diet.id };
+                    var selectedDiet = await connection.QueryAsync<Diet>(sqlStatementQueryDit, selectParemeter);
+
+                    var updateParameters = new { DietId = diet.id, WeekDay = diet.weekDay, UserId = diet.userId };
+                    string updateQuery = @"UPDATE Diets SET WeekDay = @WeekDay, UserId = @UserId WHERE id = @DietId";
+                    await connection.QueryAsync<int>(updateQuery, updateParameters);
+
+                    string updateFoodQuery = @"UPDATE Foods SET Name = @Name,  QuantityLbs = @QuantityLbs WHERE id = @FoodId";
+                    foreach (var item in diet.foods)
+                    {
+                        var updateFoodParameters = new { Name = item.Name, QuantityLbs = item.QuantityLbs, FoodId = item.id };
+                        await connection.QueryAsync<int>(updateFoodQuery, updateFoodParameters);
+                    }
+
+                    return new JsonResult("Diet Updated")
+                    {
+                        StatusCode = StatusCodes.Status200OK // Status code here 
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
 
 
+            }
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
         }
         /// <summary>
         /// List all Diets for an User
@@ -120,12 +156,59 @@ namespace CS5500_Final.Controllers
 
         [HttpGet(nameof(GetAllDietsByUser))]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<HttpResponseMessage> GetAllDietsByUser(int userId)
+        public async Task<JsonResult> GetAllDietsByUser(int userId)
         {
+            
+
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
 
 
+                    var parameters = new { UserId = userId };
+                    var sqlStatementQueryDit = @"select* from Diets where id = @UserId";
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+                    var selectedDiets = await connection.QueryAsync<Diet>(sqlStatementQueryDit, parameters);
+
+                    if (selectedDiets.Count() > 0)
+                    {
+                        FoodProcess process = new FoodProcess(_configuration);
+                        
+                        foreach (var item in selectedDiets)
+                        {
+                            item.foods = await process.GetFoodsByDietId(item.id);
+
+                            
+                        }
+
+
+                        return new JsonResult(selectedDiets)
+                        {
+                            StatusCode = StatusCodes.Status200OK // Status code here 
+                        };
+                    }
+                    else
+                    {
+                        return new JsonResult("Diets related to this user id not found")
+                        {
+                            StatusCode = StatusCodes.Status200OK // Status code here 
+                        };
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
+
+            }
+
         }
 
         /// <summary>
@@ -134,15 +217,15 @@ namespace CS5500_Final.Controllers
         /// <param name="id"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        [HttpGet(nameof(GetAllDietsByUserByMonth))]
-        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<HttpResponseMessage> GetAllDietsByUserByMonth(int id, int month)
+        //[HttpGet(nameof(GetAllDietsByUserByMonth))]
+        //[ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+        //public async Task<HttpResponseMessage> GetAllDietsByUserByMonth(int id, int month)
 
-        {
+        //{
 
 
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
+        //    return new HttpResponseMessage(HttpStatusCode.OK);
+        //}
     }
 }

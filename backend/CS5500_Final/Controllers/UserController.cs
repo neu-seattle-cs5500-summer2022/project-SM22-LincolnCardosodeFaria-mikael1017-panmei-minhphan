@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CS5500_Final.Controllers
 {
-    [Produces("application/json")]
+    //[Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
@@ -24,7 +24,7 @@ namespace CS5500_Final.Controllers
         {
             _configuration = configuration;
         }
-        //[EnableCors("AllowAll")]
+        
         /// <summary>
         /// Create an User
         /// </summary>
@@ -32,22 +32,13 @@ namespace CS5500_Final.Controllers
         /// <returns></returns>
         [HttpPost(nameof(CreateUser))]
         public async Task<JsonResult> CreateUser(UserViewModel data)
-        {
-
-
+        {              
             string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (var connection = new SqlConnection(myDb1ConnectionString))
                 {
-                    await connection.OpenAsync();
-                    List<User> resultUser = new List<User>();
-                    var parameters = new { username = data.username };
-                    var sqlStatementUser = @"
-                                   select * from Users
-                                    where username = @username";
-
-                    resultUser = (await connection.QueryAsync<User>(sqlStatementUser, parameters)).ToList();
+                    List<User> resultUser = await GetUser(data.username, connection);
 
                     if (resultUser.Count == 0)
                     {
@@ -72,7 +63,12 @@ namespace CS5500_Final.Controllers
 
                         int result = await connection.ExecuteScalarAsync<int>(sqlStatement, data);
 
-                        return new JsonResult("User Created")
+
+                        List<User> userCreated = await GetUser(data.username, connection);
+
+                        await connection.CloseAsync();
+                      
+                        return new JsonResult(new { userId = userCreated.FirstOrDefault().id, message = "User Created" })
                         {
                             StatusCode = StatusCodes.Status200OK // Status code here 
                         };
@@ -80,6 +76,8 @@ namespace CS5500_Final.Controllers
 
                     else
                     {
+                        await connection.CloseAsync();
+
                         return new JsonResult("username is unavailable")
                         {
                             StatusCode = StatusCodes.Status451UnavailableForLegalReasons // Status code here 
@@ -100,18 +98,51 @@ namespace CS5500_Final.Controllers
 
         }
 
+        private static async Task<List<User>> GetUser(string username, SqlConnection connection)
+        {          
+            List<User> resultUser = new List<User>();
+            var parameters = new { username = username };
+            var sqlStatementUser = @"
+                                   select * from Users
+                                    where username = @username";
+
+            resultUser = (await connection.QueryAsync<User>(sqlStatementUser, parameters)).ToList();
+            return resultUser;
+        }
+
 
         /// <summary
         /// Return All Users
         /// </summary>
         /// <returns></returns>
         [HttpGet(nameof(GetAllUsers))]
-        public async Task<HttpResponseMessage> GetAllUsers()
+        public async Task<JsonResult> GetAllUsers()
         {
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
 
+                    string getAllUsers = @"select * from Users";
 
+                    var selectedUser = await connection.QueryAsync<User>(getAllUsers);
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+                    return new JsonResult(selectedUser)
+                    {
+                        StatusCode = StatusCodes.Status200OK // Status code here 
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
+
+            }
         }
         /// <summary>
         /// Update an User
@@ -119,12 +150,47 @@ namespace CS5500_Final.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost(nameof(UpdateUser))]
-        public async Task<HttpResponseMessage> UpdateUser(User data)
+        public async Task<JsonResult> UpdateUser(User data)
         {
 
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
 
-            
-            return new HttpResponseMessage(HttpStatusCode.OK);
+                    var updateUsersParameters = new 
+
+                    {   UserId = data.id,
+                        Username = data.username,
+                        Fullname = data.fullname,
+                        Email = data.email,
+                        Password = data.password,
+                        DOB = data.dob,
+                        Address = data.address,
+                        Phone = data.phone
+                         
+                    };
+                    string updateFoodQuery = @"UPDATE Users SET username = @Username,  fullname = @Fullname , email = @Email, password = @Password, dob =@DOB , address = @Address, phone = @Phone WHERE id = @UserId";
+                    await connection.QueryAsync<int>(updateFoodQuery, updateUsersParameters);
+
+                    return new JsonResult("User Updated")
+                    {
+                        StatusCode = StatusCodes.Status200OK // Status code here 
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
+
+
+            }
+
         }
 
         /// <summary>
@@ -133,13 +199,34 @@ namespace CS5500_Final.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet(nameof(GetUserById))]
-        public async Task<HttpResponseMessage> GetUserById(int Id)
+        public async Task<JsonResult> GetUserById(int id)
         {
-            var tt = new HttpResponseMessage(HttpStatusCode.OK);
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
 
-            //return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(SerializedString, System.Text.Encoding.UTF8, "application/json") };
+                    var getUsersParameters = new { UserId = id };
+                    string getAllUsers = @"select * from Users WHERE id = @UserId";
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+                    var selectedUser = await connection.QueryAsync<User>(getAllUsers, getUsersParameters);
+
+                    return new JsonResult(selectedUser)
+                    {
+                        StatusCode = StatusCodes.Status200OK // Status code here 
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
+
+            }
         }
     }
 }
