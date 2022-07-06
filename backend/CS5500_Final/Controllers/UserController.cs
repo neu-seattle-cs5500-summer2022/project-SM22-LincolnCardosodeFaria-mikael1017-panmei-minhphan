@@ -24,7 +24,7 @@ namespace CS5500_Final.Controllers
         {
             _configuration = configuration;
         }
-        
+
         /// <summary>
         /// Create an User
         /// </summary>
@@ -32,15 +32,16 @@ namespace CS5500_Final.Controllers
         /// <returns></returns>
         [HttpPost(nameof(CreateUser))]
         public async Task<JsonResult> CreateUser(UserViewModel data)
-        {              
+        {
             string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
             try
             {
                 using (var connection = new SqlConnection(myDb1ConnectionString))
                 {
                     List<User> resultUser = await GetUser(data.username, connection);
+                    List<User> resultUserEmail = await GetUserEmail(data.email, connection);
 
-                    if (resultUser.Count == 0)
+                    if (resultUser.Count == 0 && resultUserEmail.Count == 0)
                     {
                         var sqlStatement = @"
                                     INSERT INTO Users 
@@ -67,7 +68,7 @@ namespace CS5500_Final.Controllers
                         List<User> userCreated = await GetUser(data.username, connection);
 
                         await connection.CloseAsync();
-                      
+
                         return new JsonResult(new { userId = userCreated.FirstOrDefault().id, message = "User Created" })
                         {
                             StatusCode = StatusCodes.Status200OK // Status code here 
@@ -78,10 +79,21 @@ namespace CS5500_Final.Controllers
                     {
                         await connection.CloseAsync();
 
-                        return new JsonResult("username is unavailable")
+                        if (resultUser.Count > 0)
                         {
-                            StatusCode = StatusCodes.Status451UnavailableForLegalReasons // Status code here 
-                        };
+                            return new JsonResult(new { username = data.username, email = data.email, message = "User already exists" })
+                            {
+                                StatusCode = StatusCodes.Status409Conflict // Status code here 
+                            };
+                        }
+                        else
+                        {
+                            return new JsonResult(new { username = data.username, email = data.email, message = "Email already exists" })
+                            {
+                                StatusCode = StatusCodes.Status409Conflict // Status code here 
+                            };
+                        }
+                      
                     }
                 }
             }
@@ -98,8 +110,20 @@ namespace CS5500_Final.Controllers
 
         }
 
+        private async Task<List<User>> GetUserEmail(string email, SqlConnection connection)
+        {
+            List<User> resultUser = new List<User>();
+            var parameters = new { Email = email };
+            var sqlStatementUser = @"
+                                   select * from Users
+                                    where email = @Email";
+
+            resultUser = (await connection.QueryAsync<User>(sqlStatementUser, parameters)).ToList();
+            return resultUser;
+        }
+
         private static async Task<List<User>> GetUser(string username, SqlConnection connection)
-        {          
+        {
             List<User> resultUser = new List<User>();
             var parameters = new { username = username };
             var sqlStatementUser = @"
@@ -160,9 +184,10 @@ namespace CS5500_Final.Controllers
                 {
                     await connection.OpenAsync();
 
-                    var updateUsersParameters = new 
+                    var updateUsersParameters = new
 
-                    {   UserId = data.id,
+                    {
+                        UserId = data.id,
                         Username = data.username,
                         Fullname = data.fullname,
                         Email = data.email,
@@ -170,7 +195,7 @@ namespace CS5500_Final.Controllers
                         DOB = data.dob,
                         Address = data.address,
                         Phone = data.phone
-                         
+
                     };
                     string updateFoodQuery = @"UPDATE Users SET username = @Username,  fullname = @Fullname , email = @Email, password = @Password, dob =@DOB , address = @Address, phone = @Phone WHERE id = @UserId";
                     await connection.QueryAsync<int>(updateFoodQuery, updateUsersParameters);

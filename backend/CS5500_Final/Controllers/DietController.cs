@@ -81,7 +81,7 @@ namespace CS5500_Final.Controllers
                     }
 
 
-                    return new JsonResult("Diet Created")
+                    return new JsonResult(new { dietId = id, message = "Diet Created" })
                     {
                         StatusCode = StatusCodes.Status200OK // Status code here 
                     };
@@ -169,7 +169,7 @@ namespace CS5500_Final.Controllers
 
 
                     var parameters = new { UserId = userId };
-                    var sqlStatementQueryDit = @"select* from Diets where id = @UserId";
+                    var sqlStatementQueryDit = @"select* from Diets where UserId = @UserId";
 
                     var selectedDiets = await connection.QueryAsync<Diet>(sqlStatementQueryDit, parameters);
 
