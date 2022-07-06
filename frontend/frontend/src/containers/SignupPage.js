@@ -22,13 +22,19 @@ function SignupPage() {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
+  const instance = axios.create({
+    baseURL: "https://gymmanagement.cropfix.ca",
+  });
+
   const createUser = (e) => {
     e.preventDefault();
-    axios
-      .post("https://gymmanagement.cropfix.ca/User/CreateUser/", {
+
+    instance
+      .post(
+        "/User/CreateUser",
         // headers: { "Access-Control-Allow-Origin": "*" },
         // withCredentials: true,
-        data: JSON.stringify({
+        {
           username: username,
           password: password,
           email: email,
@@ -36,8 +42,8 @@ function SignupPage() {
           dob: dob,
           address: address,
           phone: phone,
-        }),
-      })
+        }
+      )
       .then(function (response) {
         console.log(response);
         setUsername("");
