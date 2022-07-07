@@ -19,24 +19,38 @@ function LoginPage() {
     baseURL: "https://gymmanagement.cropfix.ca",
   });
 
+  const goAdminPage = (id) => {
+    navigate(`/admin/${id}`);
+  };
+  const goClientPage = (id) => {
+    navigate(`/client/${id}`);
+  };
   const requestLogin = (e) => {
     e.preventDefault();
+    // HARD-CODED for presentation purpose
+    if (username === "admin") {
+      goAdminPage(7);
+    } else if (username === "nothing") {
+      alert("Wrong credential");
+    } else {
+      goClientPage(17);
+    }
+    // instance
+    //   .post("/Request", {
+    //     username: username,
+    //     password: password,
+    //   })
+    //   .then(function (response) {
+    //     // HARD-CODED for presentation purpose
 
-    instance
-      .post("/Request", {
-        username: username,
-        password: password,
-      })
-      .then(function (response) {
-        console.log(response);
-        setUsername("");
-        setPassword("");
+    //     setUsername("");
+    //     setPassword("");
 
-        console.log("LOGIN Response: ", response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    //     console.log("LOGIN Response: ", response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   };
 
   const goHome = () => {
