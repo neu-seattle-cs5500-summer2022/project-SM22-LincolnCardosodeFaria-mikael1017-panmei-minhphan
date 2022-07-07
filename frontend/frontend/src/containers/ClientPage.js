@@ -16,8 +16,12 @@ const Client = props => {
             <Container>
                 <Row>
                     {/* <Col><Diet /></Col> */}
-                    <Col><DietLarge /></Col>
-                    <Col><WorkoutPlan /></Col>
+                    <Col>
+                        <DietLarge />
+                    </Col>
+                    <Col>
+                        <WorkoutPlan />
+                    </Col>
                 </Row>
                 <Row>
                     <Col><Schedule /></Col>

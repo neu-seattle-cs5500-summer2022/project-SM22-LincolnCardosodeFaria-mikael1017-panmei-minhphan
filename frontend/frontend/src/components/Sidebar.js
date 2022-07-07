@@ -57,10 +57,11 @@ const Sidebar = () => {
                         <Menu iconShape="square">
                             <MenuItem active={true} icon={<FiHome />}>
                                 Home
+                                <Link to="/client/17" id="sidebarlink" />
                             </MenuItem>
-                            <MenuItem icon={<FaList />} >Diet <Link to="/client/17/diet" /></MenuItem>
+                            <MenuItem icon={<FaList />} >Diet <Link to="/client/17/diet" id="sidebarlink" /></MenuItem>
                             <MenuItem icon={<FaRegHeart />}>Schedule</MenuItem>
-                            <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
+                            <MenuItem icon={<RiPencilLine />}>Workout</MenuItem>
                             <MenuItem icon={<BiCog />}>Settings</MenuItem>
                         </Menu>
                     </SidebarContent>

@@ -13,7 +13,7 @@ export default function Meal({ meal }) {
             {/* <img src={imageUrl} alt="recipe" /> */}
 
             <ul className="instructions">
-                <li>Number of servings: {meal.quantityLbs}</li>
+                <li >Number of servings: 5</li>
             </ul>
 
             <a href={meal.sourceUrl}>Go to Recipe</a>

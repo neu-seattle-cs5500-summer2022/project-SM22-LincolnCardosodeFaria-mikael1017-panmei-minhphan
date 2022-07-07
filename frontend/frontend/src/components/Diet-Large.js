@@ -3,6 +3,7 @@ import GymDataService from '../services/callAPI';
 import { useParams } from 'react-router-dom';
 import MealList from "./MealList"
 import "../style/Diet.css";
+import Sidebar from './Sidebar';
 
 
 const Diet = ({ user }) => {
@@ -45,7 +46,9 @@ const Diet = ({ user }) => {
 
             {/* <img src={"../images/diet_pic.jpg"} alt="diet" /> */}
             {/* <button onClick={() => getMealData(params.id)}>Get Daily Meal Plan</button> */}
+            {/* <Sidebar /> */}
             {mealData && <MealList mealData={mealData} />}
+
         </div >
     )
 

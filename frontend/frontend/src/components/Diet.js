@@ -25,7 +25,7 @@ function Diet({ user }) {
     }, [params.id]);
 
     return (
-        <div>
+        <div id="compnents">
             {/* mealData.data.map(weeklyMeal => {
                 return(
                 weeklyMeal.foods.map(everyDayMeal => {
