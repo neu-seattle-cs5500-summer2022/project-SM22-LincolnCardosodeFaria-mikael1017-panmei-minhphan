@@ -3,8 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Homepage from "./HomePage";
 import SignupPage from "./SignupPage";
 import LoginPage from "./LoginPage";
-import ClientPage from "./ClientPage"
-
+import ClientPage from "./ClientPage";
+import AdminPage from "./AdminPage";
+import UserEditPage from "./UserEditPage";
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,8 @@ function App() {
         <Route path="signup" element={<SignupPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path={"client/:id"} element={<ClientPage />} />
+        <Route path={"admin/:id"} element={<AdminPage />} />
+        <Route path={"user/:id"} element={<UserEditPage />} />
       </Routes>
     </div>
   );
