@@ -5,13 +5,12 @@ import React, { useState, useEffect } from "react";
 // import Row from 'react-bootstrap/Row';
 // import Container from 'react-bootstrap/Container';
 // import Card from 'react-bootstrap/Card';
-import Members from "../components/Members";
 import Schedule from "../components/Schedule";
 import WorkoutPlan from "../components/WorkoutPlan";
-import Diet from "../components/Diet";
 import Attendence from "../components/Attendence";
 import MyNavbar from "../components/Navbar.js";
 import Sidebar from "../components/Sidebar";
+import AdminDiet from "../components/AdminDiet";
 
 const Admin = (props) => {
   return (
@@ -19,7 +18,7 @@ const Admin = (props) => {
       <Sidebar />
       <MyNavbar />
       <div id="page-wrap">
-        <Members />
+        <AdminDiet />
         {/* <Schedule />
         <Attendence />
         <WorkoutPlan /> */}
