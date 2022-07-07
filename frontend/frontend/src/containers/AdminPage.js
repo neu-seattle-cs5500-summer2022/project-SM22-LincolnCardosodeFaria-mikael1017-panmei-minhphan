@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Users from "./Users";
 import axios from "axios";
 import styled from "styled-components";
-<<<<<<< HEAD
 import AdminDiet from "../components/AdminDiet";
-=======
->>>>>>> 72e18e14caaadbecfbbd9c02a2d0101f19e64d98
 
 const AdminContainer = styled.div`
   margin: 25px;
@@ -42,10 +39,6 @@ function AdminPage() {
       <UsersContainer>
         <Users users={users} />
       </UsersContainer>
-<<<<<<< HEAD
-      <AdminDiet />
-=======
->>>>>>> 72e18e14caaadbecfbbd9c02a2d0101f19e64d98
     </AdminContainer>
   );
 }

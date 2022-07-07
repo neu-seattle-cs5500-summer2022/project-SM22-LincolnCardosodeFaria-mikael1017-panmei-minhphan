@@ -8,10 +8,9 @@ const FormContainer = styled.div`
   width: 25%;
 `;
 
-const AdminDiet = (props) => {
+function AdminDiet(props) {
   const [diet, setDiet] = useState("");
-  const [userId, setUserId] = useState("");
-  const [weekDay, setWeekDay] = useState("");
+  const [weekDay, setWeekDay] = useState(0);
   const instance = axios.create({
     baseURL: "https://gymmanagement.cropfix.ca",
   });
@@ -25,7 +24,7 @@ const AdminDiet = (props) => {
         // headers: { "Access-Control-Allow-Origin": "*" },
         // withCredentials: true,
         {
-          userId: userId,
+          userId: props.id,
           weekDay: weekDay,
           diet: diet,
         }
@@ -33,8 +32,8 @@ const AdminDiet = (props) => {
       .then(function (response) {
         console.log(response);
         setDiet("");
-        setUserId("");
         setWeekDay("");
+        alert("Diet has been created for selected user");
       })
       .catch(function (error) {
         console.log(error);
@@ -45,7 +44,7 @@ const AdminDiet = (props) => {
     <div>
       <FormContainer className="mb-3">
         <Form onSubmit={createDiet}>
-          <Form.Label>Diet</Form.Label>
+          <Form.Label>Create a diet </Form.Label>
           <Form.Group className="mb-3">
             {/* <Form.Label>Username</Form.Label> */}
 
@@ -65,13 +64,13 @@ const AdminDiet = (props) => {
               value={weekDay}
               onChange={(e) => setWeekDay(e.target.value)}
             >
-              <option value="0"> Monday </option>
-              <option value="1"> Tuesday </option>
-              <option value="2"> Wednesday </option>
-              <option value="3"> Thursday </option>
-              <option value="4"> Friday</option>
-              <option value="5"> Saturday</option>
-              <option value="6"> Sunday</option>
+              <option value={0}> Monday </option>
+              <option value={1}> Tuesday </option>
+              <option value={2}> Wednesday </option>
+              <option value={3}> Thursday </option>
+              <option value={4}> Friday</option>
+              <option value={5}> Saturday</option>
+              <option value={6}> Sunday</option>
             </Form.Control>
           </Form.Group>
           <div>
@@ -83,6 +82,6 @@ const AdminDiet = (props) => {
       </FormContainer>
     </div>
   );
-};
+}
 
 export default AdminDiet;
