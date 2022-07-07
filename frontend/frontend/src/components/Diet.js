@@ -5,28 +5,28 @@ import { useParams } from 'react-router-dom';
 import "../style/Diet.css";
 
 function Diet({ user }) {
-    let params = useParams();
-    console.log("diet-large params", params.id);
+  let params = useParams();
+  console.log("diet-large params", params.id);
 
-    const [mealData, setMealData] = useState(null);
+  const [mealData, setMealData] = useState(null);
 
-    useEffect(() => {
-        const getMealData = id => {
-            GymDataService.findDiet(id)
-                .then(response => {
-                    console.log("diet-large---------------- ", response);
-                    setMealData(response.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
-        };
-        getMealData(params.id);
-    }, [params.id]);
+  useEffect(() => {
+    const getMealData = id => {
+      GymDataService.findDiet(id)
+        .then(response => {
+          console.log("diet-large---------------- ", response);
+          setMealData(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    };
+    getMealData(params.id);
+  }, [params.id]);
 
-    return (
-        <div id="compnents">
-            {/* mealData.data.map(weeklyMeal => {
+  return (
+    <div id="compnents">
+      {/* mealData.data.map(weeklyMeal => {
                 return(
                 weeklyMeal.foods.map(everyDayMeal => {
                 <Accordion defaultActiveKey="0">
@@ -40,9 +40,8 @@ function Diet({ user }) {
             }))
             }) */}
 
-        </div>
+    </div>
 
-    );
+  );
 }
-
 export default Diet;
