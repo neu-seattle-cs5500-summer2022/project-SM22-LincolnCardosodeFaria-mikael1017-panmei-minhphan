@@ -8,7 +8,7 @@ const AdminContainer = styled.div`
   margin: 25px;
 `;
 const UsersContainer = styled.div`
-  max-width: 25%;
+  max-width: 45%;
   max-height: 80vh;
   overflow-y: scroll;
 `;
