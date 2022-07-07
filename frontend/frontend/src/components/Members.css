@@ -1,0 +1,6 @@
+.members {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: "18rem"
+}
