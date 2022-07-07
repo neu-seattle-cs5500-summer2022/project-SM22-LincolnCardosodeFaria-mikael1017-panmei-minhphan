@@ -12,22 +12,27 @@ const FormContainer = styled.div`
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const instance = axios.create({
+    baseURL: "https://gymmanagement.cropfix.ca",
+  });
 
   const requestLogin = (e) => {
     e.preventDefault();
-    // TODO: post request here
-    axios
-      .post("/user/login", {
-        email: email,
+
+    instance
+      .post("/Request", {
+        username: username,
         password: password,
       })
       .then(function (response) {
         console.log(response);
-        setEmail("");
+        setUsername("");
         setPassword("");
-        //TODO: Should return userId
+
+        console.log("LOGIN Response: ", response);
       })
       .catch(function (error) {
         console.log(error);
@@ -47,11 +52,11 @@ function LoginPage() {
           <Form.Group className="mb-3">
             {/* <Form.Label>Username</Form.Label> */}
             <Form.Control
-              type="email"
-              placeholder="Email"
+              type="text"
+              placeholder="Username"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3">

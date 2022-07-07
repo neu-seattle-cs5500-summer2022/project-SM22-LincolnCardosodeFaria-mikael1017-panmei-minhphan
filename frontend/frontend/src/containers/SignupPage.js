@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./HomePage";
+
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import MyNavbar from "../components/Navbar";
@@ -15,10 +16,10 @@ function SignupPage() {
   // create state variables for each input
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dob, setdob] = useState("");
+  const [dob, setdob] = useState(new Date());
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -38,7 +39,7 @@ function SignupPage() {
           username: username,
           password: password,
           email: email,
-          fullname: fullName,
+          fullname: fullname,
           dob: dob,
           address: address,
           phone: phone,
@@ -107,7 +108,7 @@ function SignupPage() {
               type="text"
               placeholder="Full Name"
               required
-              value={fullName}
+              value={fullname}
               onChange={(e) => setFullName(e.target.value)}
             />
           </Form.Group>
@@ -115,7 +116,7 @@ function SignupPage() {
           <Form.Group className="mb-3">
             {/* <Form.Label>Date of Birth</Form.Label> */}
             <Form.Control
-              type=""
+              type="date"
               placeholder="Date of Birth"
               required
               value={dob}
