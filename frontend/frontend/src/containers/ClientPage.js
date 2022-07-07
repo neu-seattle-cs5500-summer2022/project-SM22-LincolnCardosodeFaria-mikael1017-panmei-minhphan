@@ -1,27 +1,33 @@
-import React, { useState, useEffect } from 'react';
-// import { useParams } from "react-router";
-// import Image from 'react-bootstrap/Image';
-// import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
-// import Container from 'react-bootstrap/Container';
-// import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import Schedule from '../components/Schedule'
 import WorkoutPlan from '../components/WorkoutPlan';
 import Diet from '../components/Diet';
 import Attendence from '../components/Attendence';
 import Sidebar from '../components/Sidebar';
+import DietLarge from '../components/Diet-Large';
 
 const Client = props => {
     return (
         <div className="Client">
             <Sidebar />
-            <div id="page-wrap">
-                <Diet />
-                <Schedule />
-                <Attendence />
-                <WorkoutPlan />
-            </div>
+            <Container>
+                <Row>
+                    {/* <Col><Diet /></Col> */}
+                    <Col>
+                        <DietLarge />
+                    </Col>
+                    <Col>
+                        <WorkoutPlan />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col><Schedule /></Col>
+                    <Col><Attendence /></Col>
+                </Row>
+            </Container>
         </div>
 
     )

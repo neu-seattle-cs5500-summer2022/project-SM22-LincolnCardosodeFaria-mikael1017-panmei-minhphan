@@ -1,65 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
-import MealList from "./MealList";
-//for testint
-// import testfoods from '../test-foods.json'
+import Accordion from 'react-bootstrap/Accordion';
+import React, { useState, useEffect } from 'react';
+import GymDataService from '../services/callAPI';
+import { useParams } from 'react-router-dom';
+import "../style/Diet.css";
 
-const Diet = ({ user }) => {
+function Diet({ user }) {
   let params = useParams();
+  console.log("diet-large params", params.id);
 
   const [mealData, setMealData] = useState(null);
-  const [calories, setCalories] = useState(2000);
 
-  function getClientData(id) {
-    //call API to get one month calories
-  }
-
-  // Spoonacular API
-  function getMealData() {
-    fetch(
-      `https://api.spoonacular.com/mealplanner/generate?apiKey=cb1c464d94f142c08b156c5beddade8b&timeFrame=day&targetCalories=${calories}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setMealData(data);
-      })
-      .catch(() => {
-        console.log("error");
-      });
-  }
-
-  function handleChange(e) {
-    setCalories(e.target.value);
-  }
-
-  // return (
-  //     <div className="App">
-  //         <section className="controls">
-  //             <input
-  //                 type="number"
-  //                 placeholder="Calories (e.g. 2000)"
-  //                 onChange={handleChange}
-  //             />
-  //             <button onClick={getMealData}>Get Daily Meal Plan</button>
-  //         </section>
-  //         {mealData && <MealList mealData={mealData} />}
-  //     </div>
-  // )
+  useEffect(() => {
+    const getMealData = id => {
+      GymDataService.findDiet(id)
+        .then(response => {
+          console.log("diet-large---------------- ", response);
+          setMealData(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    };
+    getMealData(params.id);
+  }, [params.id]);
 
   return (
-    <div>
-      <Card>
-        <Card.Body>
-          <button onClick={getMealData}>Prev</button>
-          <button onClick={getMealData}>Get Today's Meal Plan</button>
-          <button onClick={getMealData}>Next</button>
-          {mealData && <MealList mealData={mealData} />}
-        </Card.Body>
-      </Card>
-    </div>
-  );
-};
+    <div id="compnents">
+      {/* mealData.data.map(weeklyMeal => {
+                return(
+                weeklyMeal.foods.map(everyDayMeal => {
+                <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>{everyDayMeal.name}</Accordion.Header>
+                        <Accordion.Body>
+                            foods
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+            }))
+            }) */}
 
+    </div>
+
+  );
+}
 export default Diet;
