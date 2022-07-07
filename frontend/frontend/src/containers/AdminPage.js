@@ -1,30 +1,47 @@
-import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router";
-// import Image from 'react-bootstrap/Image';
-// import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
-// import Container from 'react-bootstrap/Container';
-// import Card from 'react-bootstrap/Card';
-import Schedule from "../components/Schedule";
-import WorkoutPlan from "../components/WorkoutPlan";
-import Attendence from "../components/Attendence";
-import MyNavbar from "../components/Navbar.js";
-import Sidebar from "../components/Sidebar";
+import React, { useEffect, useState } from "react";
+import Users from "./Users";
+import axios from "axios";
+import styled from "styled-components";
 import AdminDiet from "../components/AdminDiet";
 
-const Admin = (props) => {
-  return (
-    <div className="Admin">
-      <Sidebar />
-      <MyNavbar />
-      <div id="page-wrap">
-        <AdminDiet />
-        {/* <Schedule />
-        <Attendence />
-        <WorkoutPlan /> */}
-      </div>
-    </div>
-  );
-};
+const AdminContainer = styled.div`
+  margin: 25px;
+`;
+const UsersContainer = styled.div`
+  max-width: 25%;
+  max-height: 80vh;
+  overflow-y: scroll;
+`;
 
-export default Admin;
+function AdminPage() {
+  const [users, setUsers] = useState([]);
+
+  const instance = axios.create({
+    baseURL: "https://gymmanagement.cropfix.ca",
+  });
+
+  const getAllUsers = () => {
+    instance
+      .get("/User/GetAllUsers")
+      .then(function (response) {
+        setUsers(response.data);
+        // console.log("Get all user Response: ", response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+  return (
+    <AdminContainer>
+      <UsersContainer>
+        <Users users={users} />
+      </UsersContainer>
+      <AdminDiet />
+    </AdminContainer>
+  );
+}
+
+export default AdminPage;

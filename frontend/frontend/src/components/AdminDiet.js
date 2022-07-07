@@ -25,9 +25,9 @@ const AdminDiet = (props) => {
         // headers: { "Access-Control-Allow-Origin": "*" },
         // withCredentials: true,
         {
-          diet: diet,
           userId: userId,
           weekDay: weekDay,
+          diet: diet,
         }
       )
       .then(function (response) {
