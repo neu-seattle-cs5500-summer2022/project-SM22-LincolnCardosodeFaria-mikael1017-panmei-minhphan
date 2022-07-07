@@ -1,5 +1,6 @@
 //import useState hook to create menu collapse state
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 //import react pro sidebar components
 import {
@@ -25,6 +26,7 @@ import { BiCog } from "react-icons/bi";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
 import "../style/Sidebar.css";
+
 
 const Sidebar = () => {
     //create initial menuCollapse state using useState hook
@@ -56,8 +58,8 @@ const Sidebar = () => {
                             <MenuItem active={true} icon={<FiHome />}>
                                 Home
                             </MenuItem>
-                            <MenuItem icon={<FaList />}>Category</MenuItem>
-                            <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
+                            <MenuItem icon={<FaList />} >Diet <Link to="/client/17/diet" /></MenuItem>
+                            <MenuItem icon={<FaRegHeart />}>Schedule</MenuItem>
                             <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
                             <MenuItem icon={<BiCog />}>Settings</MenuItem>
                         </Menu>

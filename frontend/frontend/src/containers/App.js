@@ -4,6 +4,7 @@ import Homepage from "./HomePage";
 import SignupPage from "./SignupPage";
 import LoginPage from "./LoginPage";
 import ClientPage from "./ClientPage"
+import DietLargePage from "../components/Diet-Large"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="signup" element={<SignupPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path={"client/:id"} element={<ClientPage />} />
+        <Route path={"client/:id/diet"} element={<DietLargePage />} />
       </Routes>
     </div>
   );
