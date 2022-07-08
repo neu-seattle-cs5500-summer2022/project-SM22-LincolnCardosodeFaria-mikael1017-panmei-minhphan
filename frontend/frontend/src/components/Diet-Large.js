@@ -42,7 +42,7 @@ const Diet = ({ user }) => {
     }, [params.id]);
 
     return (
-        <div>
+        <div className='user_diet'>
 
             {/* <img src={"../images/diet_pic.jpg"} alt="diet" /> */}
             {/* <button onClick={() => getMealData(params.id)}>Get Daily Meal Plan</button> */}
