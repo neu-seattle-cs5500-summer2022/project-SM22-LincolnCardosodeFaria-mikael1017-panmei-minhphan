@@ -32,7 +32,8 @@ const Diet = ({ user }) => {
             GymDataService.findDiet(id)
                 .then(response => {
                     console.log(response);
-                    setMealData(response.data)
+                    if (response.data !== "Diets related to this user id not found")
+                        setMealData(response.data)
                 })
                 .catch(e => {
                     console.log(e);
