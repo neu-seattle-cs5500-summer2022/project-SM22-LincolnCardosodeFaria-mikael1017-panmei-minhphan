@@ -47,6 +47,7 @@ function SignupPage() {
       )
       .then(function (response) {
         console.log(response);
+        // alert("User Cr");
         setUsername("");
         setEmail("");
         setPassword("");

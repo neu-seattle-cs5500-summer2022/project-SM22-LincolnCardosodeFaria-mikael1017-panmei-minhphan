@@ -19,11 +19,17 @@ function LoginPage() {
     baseURL: "https://gymmanagement.cropfix.ca",
   });
 
+  const goAdminPage = (id) => {
+    navigate(`/admin/${id}`);
+  };
+  const goClientPage = (id) => {
+    navigate(`/client/${id}`);
+  };
   const requestLogin = (e) => {
     e.preventDefault();
 
     instance
-      .post("/Request", {
+      .post("/Authentication/Login", {
         username: username,
         password: password,
       })
@@ -32,7 +38,12 @@ function LoginPage() {
         setUsername("");
         setPassword("");
 
-        console.log("LOGIN Response: ", response);
+        console.log("LOGIN Response: ", response.data.authentication);
+        if (response.data.authentication) {
+          goClientPage(17);
+        } else {
+          alert("Wrong credential");
+        }
       })
       .catch(function (error) {
         console.log(error);
