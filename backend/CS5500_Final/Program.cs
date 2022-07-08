@@ -17,7 +17,9 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "Gym Management API",
-        Description = "API for retreave user information related to gym management",
+        Description = "Base URL : https://gymmanagement.cropfix.ca/ ",
+
+
         //TermsOfService = new Uri("https://example.com/terms"),
         //Contact = new OpenApiContact
         //{

@@ -1,6 +1,6 @@
 //import useState hook to create menu collapse state
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 //import react pro sidebar components
 import {
@@ -29,6 +29,8 @@ import "../style/Sidebar.css";
 
 
 const Sidebar = () => {
+    let params = useParams();
+
     //create initial menuCollapse state using useState hook
     const [menuCollapse, setMenuCollapse] = useState(false);
 
@@ -57,9 +59,9 @@ const Sidebar = () => {
                         <Menu iconShape="square">
                             <MenuItem active={true} icon={<FiHome />}>
                                 Home
-                                <Link to="/client/17" id="sidebarlink" />
+                                <Link to={`/client/${params.id}`} id="sidebarlink" />
                             </MenuItem>
-                            <MenuItem icon={<FaList />} >Diet <Link to="/client/17/diet" id="sidebarlink" /></MenuItem>
+                            <MenuItem icon={<FaList />} >Diet <Link to={`/client/${params.id}/diet`} id="sidebarlink" /></MenuItem>
                             <MenuItem icon={<FaRegHeart />}>Schedule</MenuItem>
                             <MenuItem icon={<RiPencilLine />}>Workout</MenuItem>
                             <MenuItem icon={<BiCog />}>Settings</MenuItem>

@@ -2,10 +2,13 @@
 {
     public class DietViewModel
     {
-        public List<FoodViewModel> Foods { get; set; }
+        //public List<FoodViewModel> Foods { get; set; }
         //public List<int> foodsids { get; set; }
         public int userId { get; set; }
 
         public int weekDay { get; set; }
+        
+        public string diet { get; set; }
     }
+    
 }

@@ -36,17 +36,18 @@ namespace CS5500_Final.Controllers
                     await connection.OpenAsync();
 
 
-                    var parameters = new { WeekDay = diet.weekDay, UserId = diet.userId };
+                    var parameters = new { WeekDay = diet.weekDay, UserId = diet.userId, Diet =diet.diet };
                     var sqlStatement = @"
                                     INSERT INTO Diets 
                                     (WeekDay
                                     ,UserId
+                                    ,Diet
                                     
                                     )
                                     VALUES (
                                      @WeekDay
                                     ,@UserId
-                                    
+                                    ,@Diet
       
                                     )";
 
@@ -57,28 +58,28 @@ namespace CS5500_Final.Controllers
 
                     var lastId =await connection.QueryAsync<int>(sqlStatementLatestId);
                     int id = lastId.FirstOrDefault();
-                    foreach (var item in diet.Foods)
-                    {
-                        var parametersFood = new { DietId = lastId.FirstOrDefault(), QuantityLbs = item.quantityLbs, Name = item.name };
-                        var sqlStatementFood = @"
-                                    INSERT INTO Foods 
-                                    (Name
-                                    ,QuantityLbs
-                                    ,DietId
+                    //foreach (var item in diet.Foods)
+                    //{
+                    //    var parametersFood = new { DietId = lastId.FirstOrDefault(), QuantityLbs = item.quantityLbs, Name = item.name };
+                    //    var sqlStatementFood = @"
+                    //                INSERT INTO Foods 
+                    //                (Name
+                    //                ,QuantityLbs
+                    //                ,DietId
                                     
-                                    )
-                                    VALUES (
-                                     @Name
-                                    ,@QuantityLbs
-                                    ,@DietId        
+                    //                )
+                    //                VALUES (
+                    //                 @Name
+                    //                ,@QuantityLbs
+                    //                ,@DietId        
                                     
       
-                                    )";
+                    //                )";
 
-                        await connection.QueryAsync<int>(sqlStatementFood, parametersFood);
+                    //    await connection.QueryAsync<int>(sqlStatementFood, parametersFood);
 
 
-                    }
+                    //}
 
 
                     return new JsonResult(new { dietId = id, message = "Diet Created" })
@@ -120,16 +121,16 @@ namespace CS5500_Final.Controllers
                     var selectParemeter = new { DietId = diet.id };
                     var selectedDiet = await connection.QueryAsync<Diet>(sqlStatementQueryDit, selectParemeter);
 
-                    var updateParameters = new { DietId = diet.id, WeekDay = diet.weekDay, UserId = diet.userId };
-                    string updateQuery = @"UPDATE Diets SET WeekDay = @WeekDay, UserId = @UserId WHERE id = @DietId";
+                    var updateParameters = new { DietId = diet.id, WeekDay = diet.weekDay, UserId = diet.userId, Diet = diet.diet };
+                    string updateQuery = @"UPDATE Diets SET WeekDay = @WeekDay, UserId = @UserId, Diet =@Diet WHERE id = @DietId";
                     await connection.QueryAsync<int>(updateQuery, updateParameters);
 
-                    string updateFoodQuery = @"UPDATE Foods SET Name = @Name,  QuantityLbs = @QuantityLbs WHERE id = @FoodId";
-                    foreach (var item in diet.foods)
-                    {
-                        var updateFoodParameters = new { Name = item.Name, QuantityLbs = item.QuantityLbs, FoodId = item.id };
-                        await connection.QueryAsync<int>(updateFoodQuery, updateFoodParameters);
-                    }
+                    //string updateFoodQuery = @"UPDATE Foods SET Name = @Name,  QuantityLbs = @QuantityLbs WHERE id = @FoodId";
+                    //foreach (var item in diet.foods)
+                    //{
+                    //    var updateFoodParameters = new { Name = item.Name, QuantityLbs = item.QuantityLbs, FoodId = item.id };
+                    //    await connection.QueryAsync<int>(updateFoodQuery, updateFoodParameters);
+                    //}
 
                     return new JsonResult("Diet Updated")
                     {
@@ -175,14 +176,14 @@ namespace CS5500_Final.Controllers
 
                     if (selectedDiets.Count() > 0)
                     {
-                        FoodProcess process = new FoodProcess(_configuration);
+                        //FoodProcess process = new FoodProcess(_configuration);
                         
-                        foreach (var item in selectedDiets)
-                        {
-                            item.foods = await process.GetFoodsByDietId(item.id);
+                        //foreach (var item in selectedDiets)
+                        //{
+                        //    item.foods = await process.GetFoodsByDietId(item.id);
 
                             
-                        }
+                        //}
 
 
                         return new JsonResult(selectedDiets)

@@ -6,8 +6,9 @@ namespace CS5500_Final.Models
     {
         public int id { get; set; }
 
-        public List<Food> foods { get; set; }
+        //public List<Food> foods { get; set; }
         
+        public string diet { get; set; }
         public int userId { get; set; }
 
         public int weekDay { get; set; }
