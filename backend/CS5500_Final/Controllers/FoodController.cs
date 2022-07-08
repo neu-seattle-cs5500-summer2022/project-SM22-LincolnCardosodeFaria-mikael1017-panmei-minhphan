@@ -1,20 +1,20 @@
-﻿using CS5500_Final.Models;
-using CS5500_Final.ViewModels;
-using Dapper;
-using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
+﻿//using CS5500_Final.Models;
+//using CS5500_Final.ViewModels;
+//using Dapper;
+//using Microsoft.AspNetCore.Mvc;
+//using System.Data.SqlClient;
 
-namespace CS5500_Final.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
-    public class FoodController : Controller
-    {
-        private readonly IConfiguration _configuration;
-        public FoodController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+//namespace CS5500_Final.Controllers
+//{
+//    [ApiController]
+//    [Route("[controller]")]
+//    public class FoodController : Controller
+//    {
+//        private readonly IConfiguration _configuration;
+//        public FoodController(IConfiguration configuration)
+//        {
+//            _configuration = configuration;
+//        }
 
         /// <summary>
         /// Create a Food
@@ -89,50 +89,50 @@ namespace CS5500_Final.Controllers
         /// </summary>
         /// <param name="dietId"></param>
         /// <returns></returns>            
-        [HttpGet(nameof(GetAllFoodByDietIt))]
-        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<JsonResult> GetAllFoodByDietIt(int dietId)
-        {
-            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
-            try
-            {
-                using (var connection = new SqlConnection(myDb1ConnectionString))
-                {
-                    await connection.OpenAsync();
+//        [HttpGet(nameof(GetAllFoodByDietIt))]
+//        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+//        public async Task<JsonResult> GetAllFoodByDietIt(int dietId)
+//        {
+//            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+//            try
+//            {
+//                using (var connection = new SqlConnection(myDb1ConnectionString))
+//                {
+//                    await connection.OpenAsync();
 
 
-                    var parameters = new { DietId = dietId };
-                    var sqlStatementQueryDit = @"select * from Foods
-                                                 where DietId =@DietId";
+//                    var parameters = new { DietId = dietId };
+//                    var sqlStatementQueryDit = @"select * from Foods
+//                                                 where DietId =@DietId";
 
-                    var selectedFood = await connection.QueryAsync<Food>(sqlStatementQueryDit, parameters);
+//                    var selectedFood = await connection.QueryAsync<Food>(sqlStatementQueryDit, parameters);
 
-                    if (selectedFood.Count() > 0)
-                    {
-                        return new JsonResult(selectedFood)
-                        {
-                            StatusCode = StatusCodes.Status200OK // Status code here 
-                        };
-                    }
-                    else
-                    {
-                        return new JsonResult("Food related to this diet id not found")
-                        {
-                            StatusCode = StatusCodes.Status200OK // Status code here 
-                        };
+//                    if (selectedFood.Count() > 0)
+//                    {
+//                        return new JsonResult(selectedFood)
+//                        {
+//                            StatusCode = StatusCodes.Status200OK // Status code here 
+//                        };
+//                    }
+//                    else
+//                    {
+//                        return new JsonResult("Food related to this diet id not found")
+//                        {
+//                            StatusCode = StatusCodes.Status200OK // Status code here 
+//                        };
 
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                return new JsonResult(e.Message)
-                {
-                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
-                };
+//                    }
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                return new JsonResult(e.Message)
+//                {
+//                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+//                };
 
-            }
+//            }
 
-        }
-    }
-}
+//        }
+//    }
+//}

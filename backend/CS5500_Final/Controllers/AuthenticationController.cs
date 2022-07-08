@@ -7,6 +7,8 @@ using System.Net;
 namespace CS5500_Final.Controllers
 {
     [Produces("application/json")]
+    [ApiController]
+    [Route("[controller]")]
     public class AuthenticationController : Controller
 
     {
@@ -23,7 +25,7 @@ namespace CS5500_Final.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns>Returns if the authentication was a success or not.</returns>
-        [HttpPost(nameof(Request))]
+        [HttpPost(nameof(Login))]
         public async Task<JsonResult> Login(Login user)
         {
             string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
