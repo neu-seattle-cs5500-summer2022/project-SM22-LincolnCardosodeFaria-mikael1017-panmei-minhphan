@@ -79,3 +79,11 @@
         overflow: hidden;
     }
 }
+
+#sidebarlink {
+    background-color: unset;
+}
+
+#sidebarlink:hover {
+    background-color: unset;
+}

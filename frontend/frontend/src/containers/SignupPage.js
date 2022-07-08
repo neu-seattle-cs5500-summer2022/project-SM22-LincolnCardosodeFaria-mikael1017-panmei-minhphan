@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./HomePage";
+
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import MyNavbar from "../components/Navbar";
@@ -15,25 +16,35 @@ function SignupPage() {
   // create state variables for each input
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dob, setdob] = useState(new Date());
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
+  const instance = axios.create({
+    baseURL: "https://gymmanagement.cropfix.ca",
+  });
+
   const createUser = (e) => {
     e.preventDefault();
-    axios
-      .post("/user", {
-        username: username,
-        password: password,
-        email: email,
-        fullName: fullName,
-        dateOfBirth: dateOfBirth,
-        address: address,
-        phone: phone,
-      })
+
+    instance
+      .post(
+        "/User/CreateUser",
+        // headers: { "Access-Control-Allow-Origin": "*" },
+        // withCredentials: true,
+        {
+          username: username,
+          password: password,
+          email: email,
+          fullname: fullname,
+          dob: dob,
+          address: address,
+          phone: phone,
+        }
+      )
       .then(function (response) {
         console.log(response);
         setUsername("");
@@ -41,7 +52,7 @@ function SignupPage() {
         setPassword("");
         setFullName("");
         setAddress("");
-        setDateOfBirth("");
+        setdob("");
         setPhone("");
         //TODO: Should return userId
       })
@@ -97,7 +108,7 @@ function SignupPage() {
               type="text"
               placeholder="Full Name"
               required
-              value={fullName}
+              value={fullname}
               onChange={(e) => setFullName(e.target.value)}
             />
           </Form.Group>
@@ -105,11 +116,11 @@ function SignupPage() {
           <Form.Group className="mb-3">
             {/* <Form.Label>Date of Birth</Form.Label> */}
             <Form.Control
-              type=""
+              type="date"
               placeholder="Date of Birth"
               required
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
+              value={dob}
+              onChange={(e) => setdob(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3">
