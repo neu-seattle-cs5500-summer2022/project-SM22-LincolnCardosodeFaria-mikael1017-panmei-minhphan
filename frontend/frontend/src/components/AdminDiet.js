@@ -75,7 +75,7 @@ function AdminDiet(props) {
           </Form.Group>
           <div>
             <Button type="submit" variant="primary">
-              Create Diet
+              Create
             </Button>
           </div>
         </Form>
