@@ -40,7 +40,7 @@ function LoginPage() {
 
         console.log("LOGIN Response: ", response.data.authentication);
         if (response.data.authentication) {
-          goClientPage(17);
+          goClientPage(24);
         } else {
           alert("Wrong credential");
         }
