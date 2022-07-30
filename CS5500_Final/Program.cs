@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "Gym Management API",
+        Title = "Gym Management API t4",
         Description = "Base URL : https://gymmanagement.cropfix.ca/ ",
 
 
