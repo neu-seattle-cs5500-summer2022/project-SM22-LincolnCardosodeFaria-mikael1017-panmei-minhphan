@@ -18,7 +18,7 @@ namespace CS5500_Final.Controllers
             _configuration = configuration;
         }
         /// <summary>
-        /// 
+        /// Create a new workout
         /// </summary>
         /// <param name="workout"></param>
         /// <returns></returns>
