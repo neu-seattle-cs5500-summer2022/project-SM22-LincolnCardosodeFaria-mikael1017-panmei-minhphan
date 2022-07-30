@@ -134,11 +134,11 @@ namespace CS5500_Final.Controllers
             return resultUser;
         }
 
-
-        /// <summary
+        /// <summary>
         /// Return All Users
         /// </summary>
         /// <returns></returns>
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         [HttpGet(nameof(GetAllUsers))]
         public async Task<JsonResult> GetAllUsers()
         {
