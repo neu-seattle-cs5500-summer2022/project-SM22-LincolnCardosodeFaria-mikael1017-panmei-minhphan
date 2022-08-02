@@ -193,5 +193,43 @@ namespace CS5500_Final.Controllers
 
             }
         }
+
+        /// <summary>
+        /// Delete WorkOut
+        /// </summary>
+        /// <param name="workoutId"></param>
+        /// <returns></returns>
+        [HttpDelete(nameof(DeleteWorkout))]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Delete))]
+        public async Task<JsonResult> DeleteWorkout(int workoutId)
+        {
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                    var sqlStatementQueryDit = @"delete from Workouts where id = @WorkoutId";
+                    var selectParemeter = new { WorkoutId = workoutId };
+                    var selectedDelete = await connection.QueryAsync<Workout>(sqlStatementQueryDit, selectParemeter);
+
+                    return new JsonResult("Workout Deleted")
+                    {
+                        StatusCode = StatusCodes.Status200OK // Status code here 
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
+
+
+            }
+
+        }
     }
 }

@@ -188,6 +188,58 @@ namespace CS5500_Final.Controllers
             }
         }
 
+        /// <summary>
+        /// Get the last 30 days of attendance by user id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet(nameof(GetLast30DaysAttendenceByUser))]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+        public async Task<JsonResult> GetLast30DaysAttendenceByUser(int userId)
+        {
+            string myDb1ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            try
+            {
+                using (var connection = new SqlConnection(myDb1ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+
+                    var parameters = new { UserId = userId };
+
+                    var sqlStatementQueryDit = @"SELECT * FROM  Attendences 
+                                                WHERE DATEDIFF(day,date,GETDATE()) between 0 and 30
+                                                and UserId = @UserId";
+
+                    var selectedAttendencess = await connection.QueryAsync<Attendence>(sqlStatementQueryDit, parameters);
+
+
+                    if (selectedAttendencess.Count() > 0)
+                    {
+                        return new JsonResult(selectedAttendencess)
+                        {
+                            StatusCode = StatusCodes.Status200OK // Status code here 
+                        };
+                    }
+                    else
+                    {
+                        return new JsonResult("Attendencess related to this user id not found")
+                        {
+                            StatusCode = StatusCodes.Status200OK // Status code here 
+                        };
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e.Message)
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError // Status code here 
+                };
+
+            }
+        }
 
     }
 }
