@@ -9,9 +9,9 @@
         public  string password { get; set; }
         public string dob { get; set; }
         public string address { get; set; } 
-        public string phone { get; set; } 
+        public string phone { get; set; }
+        public bool isadmin { get; set; }
 
-        
 
     }
 }

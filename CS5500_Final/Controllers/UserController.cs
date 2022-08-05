@@ -52,6 +52,7 @@ namespace CS5500_Final.Controllers
                                     ,dob
                                     ,address
                                     ,phone
+                                    ,isadmin
                                     )
                                     VALUES (@username
                                     ,@fullname
@@ -60,6 +61,7 @@ namespace CS5500_Final.Controllers
                                     ,@dob
                                     ,@address
                                     ,@phone
+                                    ,@isadmin
                                     )";
 
                         int result = await connection.ExecuteScalarAsync<int>(sqlStatement, data);
