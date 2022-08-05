@@ -47,7 +47,7 @@ namespace CS5500_Final.Controllers
 
                 if (result.Count >= 1)
                 {
-                    return new JsonResult(new { Authentication = true, Message = "User Authenticated" })
+                    return new JsonResult(new { UserId = result.FirstOrDefault().id, Admin = result.FirstOrDefault().isadmin, Authentication = true, Message = "User Authenticated" })
                     {
                         StatusCode = StatusCodes.Status200OK // Status code here 
                     };
