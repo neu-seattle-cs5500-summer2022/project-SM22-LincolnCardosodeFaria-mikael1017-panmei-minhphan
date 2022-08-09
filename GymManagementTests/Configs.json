@@ -1,0 +1,13 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+ 
+    "DefaultConnection": "Server=tcp:cs5500.database.windows.net,1433;Initial Catalog=CS5500;Persist Security Info=False;User ID=cs5500;Password=Test#123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;"
+  },
+  "AllowedHosts": "*"
+}
