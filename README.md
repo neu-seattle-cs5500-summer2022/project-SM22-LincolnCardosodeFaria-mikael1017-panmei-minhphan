@@ -1,4 +1,6 @@
-
+# Download .net Core [.NET 6.0](https://dotnet.microsoft.com/en-us/download).
+# Download Visual Studio Community [Visual Studio](https://visualstudio.microsoft.com/vs/community/).
+# Tutorial: Get started with ASP.NET Core  [Get started](https://docs.microsoft.com/en-us/aspnet/core/getting-started/?view=aspnetcore-6.0&tabs=windows).
 
 # What is .NET Core?
 .NET Core is a new version of .Net framework, developed by Microsoft. It is an open-source framework for developing windows, web applications, services, and mobile applications and it can be run on Windows, Mac, or Linux. .Net Core application can run on both .NET CORE and traditional .NET Framework (.NET framework 4.x). It is completely rewritten from scratch and it was initially launched as .Net 5 but then it was renamed to .NET CORE 1.0.
@@ -68,4 +70,11 @@ Now, build and run the application.
 Output
 
 ![image](https://user-images.githubusercontent.com/18237521/183560172-31e2cec5-ca1a-4d1e-8cfc-cb5ec42dc504.png)
+
+
+# [How To Install Visual Studio 2022](https://www.c-sharpcorner.com/article/how-to-install-visual-studio-2022/).
+
+# [Getting Started With Visual Studio 2022 Community Edition](https://www.c-sharpcorner.com/article/getting-started-with-visual-studio-2022-community-edition/).
+
+
 
