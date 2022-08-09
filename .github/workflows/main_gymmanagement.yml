@@ -24,7 +24,10 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-
+       
+      - name: Test with the dotnet CLI
+        run: dotnet test
+      
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
@@ -53,5 +56,5 @@ jobs:
         with:
           app-name: 'gymmanagement'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DDB5FBE7E307458085A403C651606137 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6A9F627ADA4E46D49A761FEC2A816D69 }}
           package: .
